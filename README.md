@@ -97,6 +97,4 @@ The case finished printing on the **Ender 3 Pro**. Here it is on the build plate
 
 <img src="finished.jpg" alt="Finished UNO R3 case on the Ender 3 Pro build plate" width="600">
 
-<img src="size-fits.jpg" alt="Second finished-print reference photo" width="600">
-
-**Next:** fit the unplugged UNO R3 and check the snap clips and both cable openings. A photo with the board installed can be added here after the fit check.
+<img src="size_fits.jpg" alt="Second finished-print reference photo" width="600">
