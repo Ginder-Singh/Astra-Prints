@@ -1,17 +1,24 @@
-# An Arduino case, from prompt to print
+# Astra Prints
 
-Built with **GPT-6 Astra + Blender**, sliced in **Cura**, and printed on a **Creality Ender 3 Pro**.
+3D prints taken from prompt to printed part with **GPT-6 Astra + Blender**, sliced in **Cura**, and printed on a **Creality Ender 3 Pro**.
 
-**Status · September 19, 2026:** Print complete. Finished case pictured below; board fit check pending.
+### Repository layout
 
-## 1. Connect Astra to Blender
+| Path | Contents |
+| --- | --- |
+| [`setup/`](setup) | Shared Blender MCP setup files, used by every print |
+| [`uno_case/`](uno_case) | Arduino UNO R3 case — model, G-code, and photos |
 
-We used Blender 5.2.0 LTS and the official Blender Lab MCP integration.
+Each print gets its own folder; the setup below is done once and reused.
 
-1. Install [the MCP add-on](mcp-1.0.3.zip) in Blender and enable it.
+## Setup: connect Astra to Blender
+
+This applies to every print in this repository. We used Blender 5.2.0 LTS and the official Blender Lab MCP integration.
+
+1. Install [the MCP add-on](setup/mcp-1.0.3.zip) in Blender and enable it.
 2. In **Preferences → System → Network**, enable **Allow Online Access**.
 3. In the add-on settings, click **Start MCP Bridge Server** (`localhost:9876`).
-4. Connect the [server bundle](blender-1.0.3.mcpb) to Codex, select **GPT-6 Astra**, and restart Codex. Keep Blender running.
+4. Connect the [server bundle](setup/blender-1.0.3.mcpb) to Codex, select **GPT-6 Astra**, and restart Codex. Keep Blender running.
 
 <details>
 <summary>Server installation and Codex configuration (macOS)</summary>
@@ -20,7 +27,7 @@ With Python 3.10+ installed, run from this repository:
 
 ```bash
 mkdir -p "$HOME/Blender-MCP/server"
-unzip -n blender-1.0.3.mcpb -d "$HOME/Blender-MCP/server"
+unzip -n setup/blender-1.0.3.mcpb -d "$HOME/Blender-MCP/server"
 python3 -m venv "$HOME/Blender-MCP/venv"
 "$HOME/Blender-MCP/venv/bin/python" -m pip install "$HOME/Blender-MCP/server"
 ```
@@ -42,33 +49,39 @@ After restarting Codex, ask: **“List the objects in the current Blender scene.
 
 </details>
 
-## 2. Give it the board and the brief
+---
+
+# Print: Arduino UNO R3 case
+
+**Status · September 19, 2026:** Print complete. Finished case pictured below; board fit check pending.
+
+## 1. Give it the board and the brief
 
 I supplied this photo of my **ELEGOO UNO R3**, along with my printer setup: **Ender 3 Pro, PLA, 0.4 mm nozzle, and Cura**.
 
-<img src="image_reference.jpg" alt="My ELEGOO UNO R3 reference board" width="360">
+<img src="uno_case/image_reference.jpg" alt="My ELEGOO UNO R3 reference board" width="360">
 
 The request: **an open-top case with snap clips, USB and power-jack openings, and jail-bar-style ventilation slots.**
 
 We corrected my initial rough measurement of 65 × 51 mm to the agreed Uno footprint of **68.6 × 53.4 mm**. The final case measures **76.2 × 58.6 × 15 mm**, with 2 mm walls and base. PCB thickness was assumed to be 1.6 mm.
 
-## 3. Approve the concept
+## 2. Approve the concept
 
 Astra generated a concept image first. I approved this design before modeling started.
 
-![Approved concept showing the open top and vertical ventilation slots](image_concept.png)
+![Approved concept showing the open top and vertical ventilation slots](uno_case/image_concept.png)
 
-## 4. Build the printable model
+## 3. Build the printable model
 
 Astra created the case in Blender through MCP, including the supports, snap clips, and connector cutouts.
 
-![Case model inside Blender](image_blender-render.png)
+![Case model inside Blender](uno_case/image_blender-render.png)
 
 The exported STL passed closed-mesh, dimension, and diagnostic slicing checks.
 
-![Render of the actual printable case](image_astra_final_preview.png)
+![Render of the actual printable case](uno_case/image_astra_final_preview.png)
 
-**Files:** [Printable STL](uno_case.stl) · [Editable Blender model](uno_case_blender_file.blend)
+**Files:** [Printable STL](uno_case/uno_case.stl) · [Editable Blender model](uno_case/uno_case_blender_file.blend)
 
 ### Time and AI cost
 
@@ -79,22 +92,22 @@ The exported STL passed closed-mesh, dimension, and diagnostic slicing checks.
 
 The full-session row includes the model-build row. Most tokens were cached conversation input. Costs use [Astra's standard API rates](https://developers.openai.com/api/docs/models/gpt-6-astra), excluding image-generation and search fees; they are estimates, not a Codex subscription bill. Later follow-ups are excluded.
 
-## 5. Slice in Cura
+## 4. Slice in Cura
 
 I imported the STL at **100% scale**, flat base down, and sliced it for the Ender 3 Pro.
 
-![Cura settings and print estimate](image_stltogcode.png)
+![Cura settings and print estimate](uno_case/image_stltogcode.png)
 
 The saved screenshot shows **0.20 mm layers, 20% infill, two wall lines, and supports off**. The exported G-code starts with a **200°C nozzle** and **60°C bed**.
 
 **Cura estimate:** 2 hours 32 minutes · 15 g / 5.13 m PLA.
 
-[Saved G-code for this printer setup](uno_case.gcode)
+[Saved G-code for this printer setup](uno_case/uno_case.gcode)
 
-## 6. The finished print
+## 5. The finished print
 
 The case finished printing on the **Ender 3 Pro**. Here it is on the build plate, with the open top, board supports, and vertical ventilation slots.
 
-<img src="finished.jpg" alt="Finished UNO R3 case on the Ender 3 Pro build plate" width="600">
+<img src="uno_case/finished.jpg" alt="Finished UNO R3 case on the Ender 3 Pro build plate" width="600">
 
-<img src="size_fits.jpg" alt="Second finished-print reference photo" width="600">
+<img src="uno_case/size_fits.jpg" alt="Second finished-print reference photo" width="600">
